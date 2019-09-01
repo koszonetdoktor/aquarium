@@ -2,16 +2,28 @@ package main
 
 import (
 	"fmt"
+	"io"
 	"net/http"
 	"os"
 )
 
 func main() {
 	appEnv := os.Getenv("APP_ENV")
+	var port int
 	if appEnv == "production" {
-		fmt.Println("App is in production! Serve static site on port :5000")
-		http.ListenAndServe(":5000", http.FileServer(http.Dir("../ui/dist")))
+		port = 5000
+
+		fs := http.FileServer(http.Dir("../ui/dist"))
+		http.Handle("/", fs)
+
+		fmt.Println("Server is running in production!")
 	} else {
-		fmt.Println("App is running in development!")
+		port = 8081
+		http.HandleFunc("/test", func(w http.ResponseWriter, req *http.Request) {
+			io.WriteString(w, "Dev Mode Test")
+		})
+		fmt.Println("Server is running in development!")
 	}
+	fmt.Println("Server is running on ", port)
+	http.ListenAndServe(fmt.Sprintf(":%d", port), nil)
 }
