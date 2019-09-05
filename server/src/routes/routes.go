@@ -1,6 +1,7 @@
 package routes
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 
@@ -47,6 +48,12 @@ func testBody(res http.ResponseWriter, req *http.Request) {
 	fmt.Println("BODY: ", string(bs))
 }
 
+type user struct {
+	Username string
+	Password string
+	FullName string
+}
+
 func signUp(res http.ResponseWriter, req *http.Request) {
 	if req.Method != http.MethodPost {
 		http.Error(res, "Not found", http.StatusNotFound)
@@ -55,5 +62,10 @@ func signUp(res http.ResponseWriter, req *http.Request) {
 	fmt.Println("Sign ")
 	bs := make([]byte, req.ContentLength)
 	req.Body.Read(bs)
-	fmt.Println("BODY", string(bs))
+	var newUser user
+	err := json.Unmarshal(bs, &newUser)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println("BODY", newUser.Username)
 }
