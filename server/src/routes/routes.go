@@ -7,6 +7,14 @@ import (
 	uuid "github.com/satori/go.uuid"
 )
 
+//Use :This will setup the routes fro the server
+func Use(mux *http.ServeMux) {
+	fmt.Println("Use routes!")
+	mux.HandleFunc("/authenticate", authenticate)
+	mux.HandleFunc("/testBody", testBody)
+	mux.HandleFunc("/signup", signUp)
+}
+
 func authenticate(res http.ResponseWriter, req *http.Request) {
 	if req.Method != http.MethodGet {
 		http.Error(res, "404 not found", http.StatusNotFound)
@@ -39,9 +47,13 @@ func testBody(res http.ResponseWriter, req *http.Request) {
 	fmt.Println("BODY: ", string(bs))
 }
 
-//Use :This will setup the routes fro the server
-func Use() {
-	fmt.Println("Use routes!")
-	http.HandleFunc("/authenticate", authenticate)
-	http.HandleFunc("/testBody", testBody)
+func signUp(res http.ResponseWriter, req *http.Request) {
+	if req.Method != http.MethodPost {
+		http.Error(res, "Not found", http.StatusNotFound)
+		return
+	}
+	fmt.Println("Sign ")
+	bs := make([]byte, req.ContentLength)
+	req.Body.Read(bs)
+	fmt.Println("BODY", string(bs))
 }

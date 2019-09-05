@@ -16,6 +16,7 @@
 <script lang="ts">
 import Vue from "vue";
 import Input from "../components/Input.vue";
+import axios from "../utils/axios";
 
 export default Vue.extend({
     name: "signup",
@@ -53,6 +54,20 @@ export default Vue.extend({
 
             if (!existsError) {
                 //TODO send signup request to the server
+
+                axios
+                    .post("/signup", {
+                        username: this.username,
+                        password: this.password,
+                        fullName: this.fullName
+                    })
+                    .then(resp => {
+                        console.log("resp", resp);
+                    })
+                    .catch(err => {
+                        console.log("eerr:", err);
+                    });
+                axios.post("/authenticate");
 
                 console.log(
                     "Signup",

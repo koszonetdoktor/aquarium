@@ -1,6 +1,6 @@
 <template>
     <div>
-        <lable>{{title}}</lable>
+        <label>{{title}}</label>
         <input :class="{error: hasError}" :type="type" @input="$emit('input', $event.target.value)" />
     </div>
 </template>
