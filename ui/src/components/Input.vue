@@ -1,7 +1,7 @@
 <template>
     <div>
         <lable>{{title}}</lable>
-        <input :type="type" :value="inputValue" @input="$emit('input', $event.target.value)" />
+        <input :class="{error: hasError}" :type="type" @input="$emit('input', $event.target.value)" />
     </div>
 </template>
 
@@ -11,18 +11,8 @@ export default Vue.extend({
     name: "Input",
     props: {
         title: String,
-        type: String
-    },
-    data: function() {
-        return {
-            inputValue: ""
-        };
-    },
-    methods: {
-        nameChange: function(event: any) {
-            console.log(event.target.value);
-            this.value = event.target.value + "%";
-        }
+        type: String,
+        hasError: Boolean
     }
 });
 </script>
@@ -47,5 +37,8 @@ input {
     color: #93b7cc;
     font-size: 24px;
     font-weight: bold;
+}
+.error {
+    border-bottom-color: rgb(199, 19, 58);
 }
 </style>
