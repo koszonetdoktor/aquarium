@@ -39,6 +39,6 @@ func CreateUser(req *http.Request) error {
 	if err != nil {
 		return err
 	}
-	fmt.Println("User ", newUser.Username, " is saved")
+	fmt.Println("User ", newUser.Username, " is created")
 	return nil
 }

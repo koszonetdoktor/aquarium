@@ -34,7 +34,7 @@ func Authenticate(res http.ResponseWriter, req *http.Request) {
 }
 
 func SignUp(res http.ResponseWriter, req *http.Request) {
-	fmt.Println("Checing the signup")
+	fmt.Println("Checking the sign up")
 	if req.Method != http.MethodPost {
 		http.Error(res, "Not found", http.StatusNotFound)
 		return
@@ -45,4 +45,5 @@ func SignUp(res http.ResponseWriter, req *http.Request) {
 		fmt.Println("Create user failed with ", err)
 		http.Error(res, http.StatusText(500), http.StatusInternalServerError)
 	}
+	res.WriteHeader(http.StatusOK)
 }
