@@ -8,12 +8,21 @@ import (
 )
 
 func Authenticate(res http.ResponseWriter, req *http.Request) {
-	if req.Method != http.MethodGet {
+	if req.Method != http.MethodPost {
 		http.Error(res, "404 not found", http.StatusNotFound)
 		return
 	}
-	// TODO the actual authentication here, then ->
-	createSessionCookie(res, req)
+
+	isAuthenticated, err := Login(req)
+	if err != nil {
+		http.Error(res, http.StatusText(500), http.StatusInternalServerError)
+		return
+	}
+	if isAuthenticated {
+		createSessionCookie(res, req)
+	} else {
+		http.Error(res, http.StatusText(401), http.StatusUnauthorized)
+	}
 	//NOTE example code to check if session exist and give back the user name if it does
 	// c.Value is the cookie value, so the userId
 	// if un, ok := dbSessions[c.Value]; ok {
