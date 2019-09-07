@@ -53,8 +53,6 @@ export default Vue.extend({
             );
 
             if (!existsError) {
-                //TODO send signup request to the server
-
                 axios
                     .post("/signup", {
                         username: this.username,
@@ -62,20 +60,14 @@ export default Vue.extend({
                         fullName: this.fullName
                     })
                     .then(resp => {
-                        console.log("resp", resp);
+                        this.$router.push("home");
                     })
                     .catch(err => {
-                        console.log("eerr:", err);
+                        console.error("Could not sign up:", err);
+                        Object.keys(this.hasError).forEach(eKey => {
+                            this.hasError[eKey] = true;
+                        });
                     });
-                axios.post("/authenticate");
-
-                console.log(
-                    "Signup",
-                    this.username,
-                    this.password,
-                    this.confirmPassword,
-                    this.fullName
-                );
             }
         }
     }
