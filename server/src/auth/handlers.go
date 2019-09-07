@@ -42,7 +42,7 @@ func SignUp(res http.ResponseWriter, req *http.Request) {
 	fmt.Println("Sign up")
 	err := CreateUser(req)
 	if err != nil {
-
+		fmt.Println("Create user failed with ", err)
 		http.Error(res, http.StatusText(500), http.StatusInternalServerError)
 	}
 }
