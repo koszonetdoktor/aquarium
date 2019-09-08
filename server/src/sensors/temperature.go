@@ -6,8 +6,8 @@ import (
 	"log"
 	"errors"
 	"time"
-	"fmt"
 	"strconv"
+	"config"
 )
 
 func SamplingWaterTemp() {
@@ -23,8 +23,12 @@ func SamplingWaterTemp() {
 		if err != nil {
 			log.Println(err)
 		}
-		fmt.Println("Temp: ", temperature)
-		time.Sleep(1 * time.Second)
+		err = config.Insert("water", "temperature", temperature)
+		if err != nil {
+			log.Println("ERROR: Reading from water temperature sensor", err)
+		}
+		log.Println("Sample water temperature: ", temperature)
+		time.Sleep(1 * time.Hour)
 	}
 }
 

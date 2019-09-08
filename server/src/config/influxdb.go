@@ -23,7 +23,7 @@ func init(){
 func Insert(media string, sensor string, measuredValue interface{}) error {
 
 	bp, err := client.NewBatchPoints(client.BatchPointsConfig{
-		Database: "mydb",
+		Database: "aquarium_db",
 		Precision: "m",
 	})
 	if err != nil {
