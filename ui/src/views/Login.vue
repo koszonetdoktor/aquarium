@@ -1,7 +1,19 @@
 <template>
     <div class="container">
-        <Input title="Username" type="text" v-model="username" />
-        <Input title="Password" type="password" v-model="password" />
+        <Input
+            @input="onInputChange"
+            :hasError="loginError"
+            title="Username"
+            type="text"
+            v-model="username"
+        />
+        <Input
+            @input="onInputChange"
+            :hasError="loginError"
+            title="Password"
+            type="password"
+            v-model="password"
+        />
         <Button @click="onLogin">Login</Button>
     </div>
 </template>
@@ -10,6 +22,7 @@
 import Vue from "vue";
 import Input from "@/components/Input.vue";
 import Button from "@/components/Button.vue";
+import axios from "../utils/axios";
 
 export default Vue.extend({
     name: "login",
@@ -20,12 +33,27 @@ export default Vue.extend({
     data: function() {
         return {
             username: "",
-            password: ""
+            password: "",
+            loginError: false
         };
     },
     methods: {
         onLogin: function() {
-            console.log("Login: ", this.username, "pass: ", this.password);
+            axios
+                .post("/authenticate", {
+                    username: this.username,
+                    password: this.password
+                })
+                .then(() => {
+                    this.$router.push("home");
+                })
+                .catch(() => {
+                    console.error("Could not log in!");
+                    this.loginError = true;
+                });
+        },
+        onInputChange: function() {
+            this.loginError = false;
         }
     }
 });

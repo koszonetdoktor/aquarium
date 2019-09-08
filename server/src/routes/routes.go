@@ -1,36 +1,19 @@
 package routes
 
 import (
+	"auth"
 	"fmt"
 	"net/http"
-
-	uuid "github.com/satori/go.uuid"
+	"os/user"
 )
 
-func authenticate(res http.ResponseWriter, req *http.Request) {
-	if req.Method != http.MethodGet {
-		http.Error(res, "404 not found", http.StatusNotFound)
-		return
-	}
-	// TODO the actual authentication here, then ->
-	cookie, err := req.Cookie("session-id")
-	if err != nil {
-		id, _ := uuid.NewV4()
-		cookie = &http.Cookie{
-			Name:     "session-id",
-			Value:    id.String(),
-			HttpOnly: true,
-		}
-		http.SetCookie(res, cookie)
-	}
-	fmt.Println("Cookie", cookie)
-
-	//NOTE example code to check if session exist and give back the user name if it does
-	// c.Value is the cookie value, so the userId
-	// if un, ok := dbSessions[c.Value]; ok {
-	// 	u = dbUsers[un]
-	// }
-	// io.WriteString(res, "You got in my friend")
+//Use :This will setup the routes fro the server
+func Use(mux *http.ServeMux) {
+	fmt.Println("Use routes!")
+	mux.HandleFunc("/authenticate", auth.Authenticate)
+	mux.HandleFunc("/signup", auth.SignUp)
+	mux.HandleFunc("/testBody", testBody)
+	mux.HandleFunc("/desk", testDesktop)
 }
 
 func testBody(res http.ResponseWriter, req *http.Request) {
@@ -39,9 +22,12 @@ func testBody(res http.ResponseWriter, req *http.Request) {
 	fmt.Println("BODY: ", string(bs))
 }
 
-//Use :This will setup the routes fro the server
-func Use() {
-	fmt.Println("Use routes!")
-	http.HandleFunc("/authenticate", authenticate)
-	http.HandleFunc("/testBody", testBody)
+func testDesktop(res http.ResponseWriter, req *http.Request) {
+	myself, err := user.Current()
+
+	if err != nil {
+		http.Error(res, "Problem with the user", 404)
+	}
+
+	fmt.Println("USER DIR: ", myself.HomeDir)
 }
