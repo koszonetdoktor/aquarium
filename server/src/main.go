@@ -9,6 +9,7 @@ import (
 
 	"github.com/rs/cors"
 	"sensors"
+	"config"
 )
 
 func main() {
@@ -16,9 +17,13 @@ func main() {
 	var port int
 
 	go sensors.SamplingWaterTemp()
+	
+	//I am not sure, this call makes any sense
+	defer config.CloseInfluxClient()
 
 	mux := http.NewServeMux()
 	routes.Use(mux)
+
 
 	if appEnv == "production" {
 		port = 5000
