@@ -3,6 +3,7 @@ package config
 import (
 	client "github.com/influxdata/influxdb1-client/v2"
 	"log"
+	"time"
 )
 
 var InfluxDB client.Client
@@ -19,6 +20,34 @@ func init(){
 	log.Println("InfluxDB is connected", InfluxDB)
 }
 
-func CloseInfluxClient() {
+func Insert(media string, sensor string, measuredValue interface{}) error {
+
+	bp, err := client.NewBatchPoints(client.BatchPointsConfig{
+		Database: "mydb",
+		Precision: "m",
+	})
+	if err != nil {
+		return err
+	}
+
+	sensorTag := map[string]string{"sensor": sensor}
+	
+	valueField := map[string]interface{}{"value": measuredValue}
+
+	pt, err := client.NewPoint(media, sensorTag, valueField,time.Now())
+	if err != nil {
+		return err
+	}
+	bp.AddPoint(pt)
+
+	err = InfluxDB.Write(bp)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func CloseInfluxClient() { 
 	InfluxDB.Close()
 }

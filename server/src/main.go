@@ -24,7 +24,6 @@ func main() {
 	mux := http.NewServeMux()
 	routes.Use(mux)
 
-
 	if appEnv == "production" {
 		port = 5000
 
