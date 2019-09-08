@@ -17,6 +17,11 @@ func init(){
 		log.Println("ERROR: could not connect to the influx databse")
 	}
 
+	_, _, err = InfluxDB.Ping(1 * time.Minute)
+	if err != nil {
+		log.Fatal("ERROR: Influx server is not answering!")
+	}
+
 	log.Println("InfluxDB is connected", InfluxDB)
 }
 
