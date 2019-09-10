@@ -24,8 +24,9 @@ func saveMeasurementRecords(req *http.Request) error {
 	}
 
 	if err := config.MassInsertRecord("water", records.Measurements); err != nil {
-		log.Println("ERROR: could not save the records in Influx")
+		log.Println("ERROR: could not save the records in Influx", err)
 	}
+	log.Println("Records are inserted succesfully")
 
 	return nil
 }

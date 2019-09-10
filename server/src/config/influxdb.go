@@ -73,7 +73,8 @@ func MassInsertRecord(media string, records []Record) error {
 		return err
 	}
 
-	dateForm := "1992-08-24 12:00"
+	dateForm := "2006-01-02 15:04"
+	//NOTE console.log(moment.utc(1566688980000).format("YYYY-MM-DD HH:MM"))
 
 	for _, record := range records {
 
