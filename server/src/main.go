@@ -16,7 +16,7 @@ func main() {
 	appEnv := os.Getenv("APP_ENV")
 	var port int
 
-	// sensors.TestRead()
+	// sensors.TestRead2()
 
 	go sensors.SamplingWaterTemp()
 	

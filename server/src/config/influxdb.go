@@ -39,7 +39,7 @@ func Insert(media string, sensor string, measuredValue interface{}) error {
 	
 	valueField := map[string]interface{}{"value": measuredValue}
 
-	pt, err := client.NewPoint(media, sensorTag, valueField,time.Now())
+	pt, err := client.NewPoint(media, sensorTag, valueField)
 	if err != nil {
 		return err
 	}
