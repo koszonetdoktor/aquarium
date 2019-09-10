@@ -1,21 +1,21 @@
 package sensors
 
 import (
-	"io/ioutil"
-	"strings"
-	"log"
-	"errors"
-	"time"
-	"strconv"
 	"config"
+	"errors"
+	"io/ioutil"
+	"log"
+	"strconv"
+	"strings"
+	"time"
 )
 
 func SamplingWaterTemp() {
-	connectedSensors, err := getSensors() 
+	connectedSensors, err := getSensors()
 	if err != nil {
 		log.Println("Could not get the conencted sensors!")
 	}
-	
+
 	log.Println("Conencted Sensors: ", connectedSensors)
 
 	for {
@@ -32,16 +32,16 @@ func SamplingWaterTemp() {
 	}
 }
 
-func getSensors()([]string, error) {
+func getSensors() ([]string, error) {
 	data, err := ioutil.ReadFile("/sys/bus/w1/devices/w1_bus_master1/w1_master_slaves")
 	if err != nil {
 		return nil, err
-	} 
+	}
 
 	sensors := strings.Split(string(data), "\n")
 
 	if len(sensors) > 0 {
-		sensors = sensors[:len(sensors)-1] 
+		sensors = sensors[:len(sensors)-1]
 	}
 	return sensors, nil
 }
@@ -63,6 +63,6 @@ func readTemperature(sensorName string) (float64, error) {
 	if err != nil {
 		return 0.0, errors.New("Temperature read error")
 	}
-	
-	return c/ 1000.0, nil
+
+	return c / 1000.0, nil
 }

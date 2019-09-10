@@ -5,13 +5,18 @@ import (
 	"fmt"
 	"net/http"
 	"os/user"
+	"record"
 )
 
 //Use :This will setup the routes fro the server
 func Use(mux *http.ServeMux) {
 	fmt.Println("Use routes!")
+
 	mux.HandleFunc("/authenticate", auth.Authenticate)
 	mux.HandleFunc("/signup", auth.SignUp)
+
+	mux.HandleFunc("/record/measurements", record.Measurements)
+
 	mux.HandleFunc("/testBody", testBody)
 	mux.HandleFunc("/desk", testDesktop)
 }
