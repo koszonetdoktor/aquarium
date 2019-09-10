@@ -4,6 +4,7 @@ import Login from "./views/Login.vue";
 import Signup from "./views/Signup.vue";
 import Home from "./views/Home.vue";
 import Auth from "./views/Auth.vue";
+import Record from "./views/Record.vue";
 
 Vue.use(Router);
 
@@ -28,6 +29,11 @@ export default new Router({
             path: "/home",
             name: "home",
             component: Home,
+        },
+        {
+            path: "/record",
+            name: "record",
+            component: Record,
         },
         {
             path: "/about",
