@@ -77,7 +77,7 @@ type Body = {
 }[];
 
 function constructBody(
-    records: { name: string; value: number }[],
+    records: { name: string; value: number | null}[],
     date: string
 ): Body {
     const body = [];
