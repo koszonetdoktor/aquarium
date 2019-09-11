@@ -24,6 +24,7 @@ import Vue from "vue";
 import Input from "@/components/Input.vue";
 import Button from "@/components/Button.vue";
 import moment, { min } from "moment";
+import axios from "../utils/axios";
 
 export default Vue.extend({
     name: "record",
@@ -32,15 +33,15 @@ export default Vue.extend({
         return {
             recordables: [
                 {
-                    name: "Ammonia",
+                    name: "ammonia",
                     value: null
                 },
                 {
-                    name: "Nitrate",
+                    name: "nitrate",
                     value: null
                 },
                 {
-                    name: "Nitrite",
+                    name: "nitrite",
                     value: null
                 }
             ],
@@ -56,16 +57,42 @@ export default Vue.extend({
             console.log(this.recordables[0].value, this.recordables[1].value);
         },
         onSave() {
-            console.log("save");
-            console.log("record:", this.recordTs);
             if (validateDateInputFormat(this.recordTs)) {
                 this.hasDateError = false;
+
+                axios.post("/record/measurements", {
+                    measurements: constructBody(this.recordables, this.recordTs)
+                });
             } else {
                 this.hasDateError = true;
             }
         }
     }
 });
+
+type Body = {
+    name: string;
+    value: number;
+    date: string;
+}[];
+
+function constructBody(
+    records: { name: string; value: number }[],
+    date: string
+): Body {
+    const body = [];
+    records.forEach(record => {
+        if (record.value) {
+            body.push({
+                name: record.name,
+                value: record.value,
+                date
+            });
+        }
+    });
+    return body;
+}
+
 function validateDateInputFormat(fullDate: string): boolean {
     const [date, time] = fullDate.split(" ");
     if (date && time) {
