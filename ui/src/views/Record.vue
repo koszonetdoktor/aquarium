@@ -77,15 +77,15 @@ type Body = {
 }[];
 
 function constructBody(
-    records: { name: string; value: number | null}[],
+    records: { name: string; value: number | null }[],
     date: string
 ): Body {
-    const body = [];
+    const body: Body = [];
     records.forEach(record => {
         if (record.value) {
             body.push({
                 name: record.name,
-                value: record.value,
+                value: Number(record.value),
                 date
             });
         }
