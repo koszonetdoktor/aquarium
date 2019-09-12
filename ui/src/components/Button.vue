@@ -10,10 +10,11 @@ export default Vue.extend({
     name: "Button"
 });
 </script>
-<style scoped>
+<style lang="scss" scoped>
+@import "../scss/variables.scss";
 .form-button {
     background: transparent;
-    color: #267dbd;
+    color: map-get($map: $colors, $key: 3);
     border: none;
     text-transform: uppercase;
     font-weight: bold;

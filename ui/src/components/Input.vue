@@ -23,7 +23,9 @@ export default Vue.extend({
 });
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import "../scss/variables.scss";
+
 div {
     padding: 8px 8px 8px 0;
 }
@@ -32,15 +34,15 @@ label {
     display: block;
     font-size: 8px;
     text-transform: uppercase;
-    color: #267dbd;
+    color: map-get($map: $colors, $key: 3);
 }
 
 input {
     background: transparent;
     border: none;
-    border-bottom: solid 1px #267dbd;
+    border-bottom: solid 1px map-get($map: $colors, $key: 3);
     outline: none;
-    color: #93b7cc;
+    color: map-get($map: $colors, $key: 4);
     font-size: 24px;
     font-weight: bold;
 }
