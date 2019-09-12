@@ -66,7 +66,7 @@ func MassInsertRecord(media string, records []Record) error {
 	log.Println("Mass inserting to media ", media)
 
 	bp, err := client.NewBatchPoints(client.BatchPointsConfig{
-		Database:  "mydb",
+		Database:  "aquarium_db",
 		Precision: "m",
 	})
 	if err != nil {
@@ -77,7 +77,6 @@ func MassInsertRecord(media string, records []Record) error {
 	//NOTE console.log(moment.utc(1566688980000).format("YYYY-MM-DD HH:MM"))
 
 	for _, record := range records {
-
 		t, err := time.Parse(dateForm, record.Date)
 		if err != nil {
 			return err

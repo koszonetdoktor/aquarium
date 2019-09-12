@@ -17,7 +17,9 @@ func main() {
 	appEnv := os.Getenv("APP_ENV")
 	var port int
 
-	go sensors.SamplingWaterTemp()
+	if appEnv != "development" {
+		go sensors.SamplingWaterTemp()
+	}
 
 	//I am not sure, this call makes any sense
 	defer config.CloseInfluxClient()
