@@ -1,7 +1,12 @@
 <template>
     <div>
         <label>{{title}}</label>
-        <input :class="{error: hasError}" :type="type" @input="$emit('input', $event.target.value)" />
+        <input
+            :class="{error: hasError}"
+            :type="type"
+            @input="$emit('input', $event.target.value)"
+            :value="value"
+        />
     </div>
 </template>
 
@@ -12,7 +17,8 @@ export default Vue.extend({
     props: {
         title: String,
         type: String,
-        hasError: Boolean
+        hasError: Boolean,
+        value: String
     }
 });
 </script>

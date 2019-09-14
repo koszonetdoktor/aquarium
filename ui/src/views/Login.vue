@@ -38,7 +38,7 @@ export default Vue.extend({
         };
     },
     methods: {
-        onLogin: function() {
+        onLogin() {
             axios
                 .post("/authenticate", {
                     username: this.username,
@@ -52,8 +52,9 @@ export default Vue.extend({
                     this.loginError = true;
                 });
         },
-        onInputChange: function() {
+        onInputChange() {
             this.loginError = false;
+            console.log(this.username);
         }
     }
 });
