@@ -33,7 +33,7 @@ export default Vue.extend({
     },
     computed: {
         showChart() {
-            return this.dataS[0].data.length > 0;
+            return this.$data.dataS[0].data.length > 0;
         }
     },
     methods: {
