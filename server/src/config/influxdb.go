@@ -66,7 +66,7 @@ func MassInsertRecord(media string, records []Record) error {
 	log.Println("Mass inserting to media ", media)
 
 	bp, err := client.NewBatchPoints(client.BatchPointsConfig{
-		Database:  "mydb",
+		Database:  "aquarium_db",
 		Precision: "m",
 	})
 	if err != nil {
