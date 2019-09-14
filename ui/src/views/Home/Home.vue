@@ -44,12 +44,10 @@ export default Vue.extend({
             try {
                 const tempMeasurePoints = await getWaterTemperature();
 
-                const ts = moment.utc(1568385332230).tz("Europe/Copenhagen");
-
                 const data: { x: string; y: number }[] = [];
                 tempMeasurePoints.forEach((point, index) => {
                     data.push({
-                        x: moment(ts).format("MM-DD HH:MM"),
+                        x: convertDate(point[0]),
                         y: point[2]
                     });
                 });
@@ -67,6 +65,6 @@ export default Vue.extend({
 
 function convertDate(unix: number): string {
     const ts = moment.utc(unix).tz("Europe/Copenhagen");
-    return moment(ts).format("YYYY-MM-DD HH:MM");
+    return moment(ts).format("MM-DD HH:MM");
 }
 </script>
