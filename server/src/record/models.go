@@ -3,7 +3,6 @@ package record
 import (
 	"config"
 	"encoding/json"
-	"fmt"
 	"log"
 	"net/http"
 )
@@ -14,7 +13,6 @@ type collection struct {
 
 func saveMeasurementRecords(req *http.Request) error {
 	bs := make([]byte, req.ContentLength)
-	fmt.Println("BODY ", req.Body)
 	req.Body.Read(bs)
 
 	var records collection
