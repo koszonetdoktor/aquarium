@@ -2,7 +2,7 @@ import Vue from "vue";
 import Router from "vue-router";
 import Login from "./views/Login.vue";
 import Signup from "./views/Signup.vue";
-import Home from "./views/Home.vue";
+import Home from "./views/Home/Home.vue";
 import Auth from "./views/Auth.vue";
 import Record from "./views/Record.vue";
 
