@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="event-container">
         <Input v-model="name" type="text" title="Name" />
         <DateInput title="Date" type="text" v-model="date" @onValidate="onValidateDate" />
         <textarea title="Notes" v-model="note" />
@@ -63,3 +63,16 @@ export default Vue.extend({
     }
 });
 </script>
+<style lang="scss" scoped>
+@import "../../../scss/variables.scss";
+
+.event-container {
+    display: flex;
+    flex-direction: column;
+}
+textarea {
+    border: solid 1px map-get($map: $colors, $key: 3);
+    min-height: 100px;
+    color: map-get($map: $colors, $key: 4);
+}
+</style>
