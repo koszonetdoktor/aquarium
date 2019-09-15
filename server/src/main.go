@@ -15,10 +15,6 @@ import (
 func main() {
 	appEnv := os.Getenv("APP_ENV")
 	var port int
-
-	// sensors.TestRead2()
-
-	go sensors.SamplingWaterTemp()
 	
 	//I am not sure, this call makes any sense
 	defer config.CloseInfluxClient()
@@ -34,6 +30,9 @@ func main() {
 		handler := cors.Default().Handler(mux)
 		log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", port), handler))
 	} else {
+		go sensors.SamplingWaterTemp()
+		go sensors.SamplingPh()
+
 		port = 5000
 
 		fs := http.FileServer(http.Dir("../../ui/dist"))
