@@ -16,7 +16,6 @@ import (
 func main() {
 	appEnv := os.Getenv("APP_ENV")
 	var port int
-
 	//I am not sure, this call makes any sense
 	defer config.CloseInfluxClient()
 
@@ -46,4 +45,5 @@ func main() {
 
 func startSampling() {
 	go sensors.SamplingWaterTemp()
+	go sensors.SamplingPh()
 }
