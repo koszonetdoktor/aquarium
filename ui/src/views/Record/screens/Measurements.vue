@@ -26,13 +26,13 @@ import Vue from "vue";
 import Input from "@/components/Input.vue";
 import Button from "@/components/Button.vue";
 import moment, { min } from "moment";
-import axios from "../utils/axios";
+import axios from "../../../utils/axios";
 import Error from "@/components/statusSigns/Error.vue";
 import Loading from "@/components/statusSigns/Loading.vue";
 import Success from "@/components/statusSigns/Success.vue";
 
 export default Vue.extend({
-    name: "record",
+    name: "measurements",
     components: { Input, Error, Loading, Success },
     data: function() {
         return {
