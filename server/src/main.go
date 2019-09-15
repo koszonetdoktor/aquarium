@@ -7,9 +7,10 @@ import (
 	"os"
 	"routes"
 
-	"github.com/rs/cors"
-	"sensors"
 	"config"
+	"sensors"
+
+	"github.com/rs/cors"
 )
 
 func main() {
@@ -22,11 +23,11 @@ func main() {
 	mux := http.NewServeMux()
 	routes.Use(mux)
 
-	if appEnv == "devevlopment" {
+	if appEnv == "development" {
 		port = 8081
-		
+
 		log.Println("Server is running in development on port: ", port)
-		
+
 		handler := cors.Default().Handler(mux)
 		log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", port), handler))
 	} else {
