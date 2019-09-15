@@ -19,6 +19,7 @@ func Use(mux *http.ServeMux) {
 	mux.HandleFunc("/record/measurements", record.Measurements)
 
 	mux.HandleFunc("/measurements/water/temperature", measurements.GetWaterTemp)
+	mux.HandleFunc("/measurements/water/ph", measurements.GetPh)
 
 	mux.HandleFunc("/testBody", testBody)
 	mux.HandleFunc("/desk", testDesktop)
