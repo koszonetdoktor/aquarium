@@ -77,7 +77,6 @@ func MassInsertRecord(media string, records []Record) error {
 	//NOTE console.log(moment.utc(1566688980000).format("YYYY-MM-DD HH:MM"))
 
 	for _, record := range records {
-
 		t, err := time.Parse(dateForm, record.Date)
 		if err != nil {
 			return err

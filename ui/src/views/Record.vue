@@ -2,7 +2,6 @@
     <div>
         <Input
             v-for="(record) in recordables"
-            @input="onRecordInput"
             v-model="record.value"
             :key="record.name"
             :title="record.name"
@@ -16,6 +15,9 @@
             :value="recordTs"
         />
         <Button @click="onSave">Save</Button>
+        <Error v-if="savingState.error" />
+        <Loading v-else-if="savingState.saving" />
+        <Success v-else-if="savingState.success" />
     </div>
 </template>
 
@@ -25,10 +27,13 @@ import Input from "@/components/Input.vue";
 import Button from "@/components/Button.vue";
 import moment, { min } from "moment";
 import axios from "../utils/axios";
+import Error from "@/components/statusSigns/Error.vue";
+import Loading from "@/components/statusSigns/Loading.vue";
+import Success from "@/components/statusSigns/Success.vue";
 
 export default Vue.extend({
     name: "record",
-    components: { Input },
+    components: { Input, Error, Loading, Success },
     data: function() {
         return {
             recordables: [
@@ -46,23 +51,38 @@ export default Vue.extend({
                 }
             ],
             recordTs: "",
-            hasDateError: false
+            hasDateError: false,
+            savingState: {
+                saving: false,
+                success: false,
+                error: false
+            }
         };
     },
     mounted() {
         this.recordTs = moment().format("YYYY-MM-DD HH:MM");
     },
     methods: {
-        onRecordInput() {
-            console.log(this.recordables[0].value, this.recordables[1].value);
-        },
         onSave() {
             if (validateDateInputFormat(this.recordTs)) {
                 this.hasDateError = false;
+                this.savingState.saving = true;
 
-                axios.post("/record/measurements", {
-                    measurements: constructBody(this.recordables, this.recordTs)
-                });
+                axios
+                    .post("/record/measurements", {
+                        measurements: constructBody(
+                            this.recordables,
+                            this.recordTs
+                        )
+                    })
+                    .then(() => {
+                        this.savingState.saving = false;
+                        this.savingState.success = true;
+                    })
+                    .catch(() => {
+                        this.savingState.saving = false;
+                        this.savingState.error = true;
+                    });
             } else {
                 this.hasDateError = true;
             }
@@ -75,6 +95,14 @@ type Body = {
     value: number;
     date: string;
 }[];
+
+function wait() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve();
+        }, 2000);
+    });
+}
 
 function constructBody(
     records: { name: string; value: number | null }[],
