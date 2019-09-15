@@ -3,6 +3,7 @@ package routes
 import (
 	"auth"
 	"fmt"
+	"measurements"
 	"net/http"
 	"os/user"
 	"record"
@@ -16,6 +17,8 @@ func Use(mux *http.ServeMux) {
 	mux.HandleFunc("/signup", auth.SignUp)
 
 	mux.HandleFunc("/record/measurements", record.Measurements)
+
+	mux.HandleFunc("/measurements/water/temperature", measurements.GetWaterTemp)
 
 	mux.HandleFunc("/testBody", testBody)
 	mux.HandleFunc("/desk", testDesktop)

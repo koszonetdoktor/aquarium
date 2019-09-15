@@ -4,17 +4,19 @@
     </div>
 </template>
 
-<style>
+<style lang="scss">
+@import "./scss/variables.scss";
+
 #app {
     font-family: "Avenir", Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
-    color: #2c3e50;
+    color: map-get($map: $colors, $key: 2);
 }
 button {
     background: transparent;
-    color: #93b7cc;
+    color: map-get($map: $colors, $key: 4);
     border: none;
     font-size: 16px;
     text-transform: uppercase;
@@ -22,9 +24,9 @@ button {
     padding-top: 24px;
 }
 body {
-    background-color: #132434;
+    background-color: map-get($map: $colors, $key: 1);
     font-family: Roboto;
-    color: #93b7cc;
+    color: map-get($map: $colors, $key: 4);
     height: 100vh;
     display: flex;
     justify-content: center;
