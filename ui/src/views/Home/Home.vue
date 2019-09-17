@@ -3,6 +3,7 @@
         <Button @click="onRecord">Record</Button>
         <Button @click="onGet">Get</Button>
         <LineChart v-if="showChart" :dataSeries="dataS" />
+        <div>{{events}}</div>
     </div>
 </template>
 
@@ -28,8 +29,17 @@ export default Vue.extend({
                     name: "Temp",
                     data: [] as { x: string; y: number }[]
                 }
-            ]
+            ],
+            events: ""
         };
+    },
+    mounted: async function() {
+        try {
+            const response = await axios.get("/record/events");
+            this.events = JSON.stringify(response.data);
+        } catch {
+            console.error("Could not get the events");
+        }
     },
     computed: {
         showChart() {

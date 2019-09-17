@@ -7,13 +7,7 @@
             :title="record.name"
             type="number"
         />
-        <Input
-            v-model="recordTs"
-            :hasError="hasDateError"
-            type="text"
-            title="Time"
-            :value="recordTs"
-        />
+        <DateInput v-model="recordTs" type="text" title="Time" @onValidate="onValidateDate" />
         <Button @click="onSave">Save</Button>
         <Error v-if="savingState.error" />
         <Loading v-else-if="savingState.saving" />
@@ -26,14 +20,15 @@ import Vue from "vue";
 import Input from "@/components/Input.vue";
 import Button from "@/components/Button.vue";
 import moment, { min } from "moment";
-import axios from "../utils/axios";
+import axios from "../../../utils/axios";
 import Error from "@/components/statusSigns/Error.vue";
 import Loading from "@/components/statusSigns/Loading.vue";
 import Success from "@/components/statusSigns/Success.vue";
+import DateInput from "@/components/DateInput.vue";
 
 export default Vue.extend({
-    name: "record",
-    components: { Input, Error, Loading, Success },
+    name: "measurements",
+    components: { Input, Error, Loading, Success, DateInput },
     data: function() {
         return {
             recordables: [
@@ -50,8 +45,8 @@ export default Vue.extend({
                     value: null
                 }
             ],
+            isDateValid: true,
             recordTs: "",
-            hasDateError: false,
             savingState: {
                 saving: false,
                 success: false,
@@ -59,13 +54,9 @@ export default Vue.extend({
             }
         };
     },
-    mounted() {
-        this.recordTs = moment().format("YYYY-MM-DD HH:MM");
-    },
     methods: {
         onSave() {
-            if (validateDateInputFormat(this.recordTs)) {
-                this.hasDateError = false;
+            if (this.isDateValid) {
                 this.savingState.saving = true;
 
                 axios
@@ -83,9 +74,10 @@ export default Vue.extend({
                         this.savingState.saving = false;
                         this.savingState.error = true;
                     });
-            } else {
-                this.hasDateError = true;
             }
+        },
+        onValidateDate(isValid) {
+            this.isDateValid = isValid;
         }
     }
 });

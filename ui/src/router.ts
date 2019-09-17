@@ -4,7 +4,9 @@ import Login from "./views/Login.vue";
 import Signup from "./views/Signup.vue";
 import Home from "./views/Home/Home.vue";
 import Auth from "./views/Auth.vue";
-import Record from "./views/Record.vue";
+import Record from "./views/Record/Record.vue";
+import Measurements from "./views/Record/screens/Measurements.vue";
+import Events from "./views/Record/screens/Events.vue";
 
 Vue.use(Router);
 
@@ -34,6 +36,16 @@ export default new Router({
             path: "/record",
             name: "record",
             component: Record,
+            children: [
+                {
+                    path: "/",
+                    component: Measurements,
+                },
+                {
+                    path: "/events",
+                    component: Events,
+                },
+            ],
         },
         {
             path: "/about",
