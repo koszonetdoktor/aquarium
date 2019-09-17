@@ -3,7 +3,7 @@ import { Event } from "./types";
 
 export function saveEvent(event: Event) {
     return new Promise((resolve, reject) => {
-        axios.post("/record/event", event)
+        axios.post("/record/events", event)
             .then(() => {
                 resolve();
             }).catch((error) => {

@@ -17,6 +17,7 @@ func Use(mux *http.ServeMux) {
 	mux.HandleFunc("/signup", auth.SignUp)
 
 	mux.HandleFunc("/record/measurements", record.Measurements)
+	mux.HandleFunc("/record/events", record.Event)
 
 	mux.HandleFunc("/measurements/water/temperature", measurements.GetWaterTemp)
 	mux.HandleFunc("/measurements/water/ph", measurements.GetPh)
