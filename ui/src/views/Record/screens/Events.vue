@@ -19,6 +19,7 @@ import Error from "@/components/statusSigns/Error.vue";
 import Loading from "@/components/statusSigns/Loading.vue";
 import Success from "@/components/statusSigns/Success.vue";
 import { saveEvent } from "../api";
+import moment from "moment";
 
 export default Vue.extend({
     name: "events",
@@ -47,7 +48,7 @@ export default Vue.extend({
                 try {
                     await saveEvent({
                         name: this.name,
-                        date: this.date,
+                        date: moment(this.date).valueOf(),
                         category: this.category,
                         note: this.note
                     });

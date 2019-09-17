@@ -36,7 +36,7 @@ func saveMeasurementRecords(req *http.Request) error {
 
 type event struct {
 	Name     string
-	Date     string
+	Date     int
 	Note     string
 	Category uint8
 }
@@ -51,11 +51,12 @@ func saveEvent(req *http.Request) error {
 		log.Println("Unmarshal event body failed")
 		return err
 	}
+
 	log.Println("Getting the event collection")
 	eventsCollection := config.MongoDB.Database("aquarium_db").Collection("events")
 
 	log.Println("Insert event to MongodDB")
-	//TODO use utc timestamp
+
 	_, err := eventsCollection.InsertOne(context.TODO(), e)
 	if err != nil {
 		log.Println("Inserting event to MongoDB failed")
@@ -65,12 +66,7 @@ func saveEvent(req *http.Request) error {
 	return nil
 }
 
-type eventSnapshot struct {
-	Name string
-	ID   string
-}
-
-func getEventSnapshots() ([]*eventSnapshot, error) {
+func findEvents() ([]*event, error) {
 	eventsCollection := config.MongoDB.Database("aquarium_db").Collection("events")
 	cur, err := eventsCollection.Find(context.TODO(), bson.D{{}}, options.Find())
 	if err != nil {
@@ -80,10 +76,10 @@ func getEventSnapshots() ([]*eventSnapshot, error) {
 
 	defer cur.Close(context.TODO())
 
-	var snaps []*eventSnapshot
+	var snaps []*event
 
 	for cur.Next(context.TODO()) {
-		var elem eventSnapshot
+		var elem event
 		err := cur.Decode(&elem)
 		if err != nil {
 			log.Println("Decode Fail")

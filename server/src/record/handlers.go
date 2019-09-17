@@ -45,7 +45,7 @@ func postEvent(res http.ResponseWriter, req *http.Request) {
 
 func getEvents(res http.ResponseWriter) {
 	log.Println("GEt events")
-	snaps, err := getEventSnapshots()
+	snaps, err := findEvents()
 	if err != nil {
 		log.Println("ERROR: get snapshots", err)
 		return
