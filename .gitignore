@@ -1,3 +1,6 @@
 server/pkg
 server/bin
 aquarium
+server/src/github.com
+server/src/go.mongodb.org
+server/src/periph.io
