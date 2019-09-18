@@ -11,6 +11,7 @@ var InfluxDB client.Client
 
 func init() {
 	var err error
+	log.Println("Connecting to InfluxDB..."
 	InfluxDB, err = client.NewHTTPClient(client.HTTPConfig{
 		Addr: "http://localhost:8086",
 	})

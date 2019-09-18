@@ -11,6 +11,7 @@ import (
 var MongoDB *mongo.Client
 
 func init() {
+	log.Println("Connecting to MongoDB...")
 	clientOptions := options.Client().ApplyURI("mongodb://localhost:27017")
 	var err error
 	MongoDB, err = mongo.Connect(context.TODO(), clientOptions)
