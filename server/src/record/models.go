@@ -36,7 +36,7 @@ func saveMeasurementRecords(req *http.Request) error {
 
 type event struct {
 	Name     string
-	Date     int
+	Date     string
 	Note     string
 	Category uint8
 }

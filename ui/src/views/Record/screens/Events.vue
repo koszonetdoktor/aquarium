@@ -48,7 +48,9 @@ export default Vue.extend({
                 try {
                     await saveEvent({
                         name: this.name,
-                        date: moment(this.date).valueOf(),
+                        date: moment(this.date)
+                            .valueOf()
+                            .toString(), // TODO ezeket stringgé kell konvertálni, mert a kis Raspi nem tudja felfogni az ekkor számot
                         category: this.category,
                         note: this.note
                     });
