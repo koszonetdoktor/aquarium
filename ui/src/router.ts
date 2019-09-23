@@ -7,6 +7,7 @@ import Auth from "./views/Auth.vue";
 import Record from "./views/Record/Record.vue";
 import Measurements from "./views/Record/screens/Measurements.vue";
 import Events from "./views/Record/screens/Events.vue";
+import Dashboard from "./views/Dashboard/Dashboard.vue";
 
 Vue.use(Router);
 
@@ -31,6 +32,11 @@ export default new Router({
             path: "/home",
             name: "home",
             component: Home,
+        },
+        {
+            path: "/dashboard",
+            name: "dashboard",
+            component: Dashboard,
         },
         {
             path: "/record",
