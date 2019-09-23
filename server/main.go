@@ -5,10 +5,10 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"routes"
+	"aquarium/routes"
 
-	"config"
-	"sensors"
+	"aquarium/config"
+	"aquarium/sensors"
 
 	"github.com/rs/cors"
 )
@@ -44,6 +44,7 @@ func main() {
 }
 
 func startSampling() {
+	log.Println("Start the sampling threads!")
 	go sensors.SamplingWaterTemp()
 	go sensors.SamplingPh()
 }

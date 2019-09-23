@@ -1,7 +1,7 @@
 package sensors
 
 import (
-	"config"
+	"aquarium/config"
 	"errors"
 	"io/ioutil"
 	"log"

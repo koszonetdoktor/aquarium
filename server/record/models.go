@@ -1,7 +1,7 @@
 package record
 
 import (
-	"config"
+	"aquarium/config"
 	"context"
 	"encoding/json"
 	"log"

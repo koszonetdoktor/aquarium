@@ -50,7 +50,7 @@ func SignUp(res http.ResponseWriter, req *http.Request) {
 func createSessionCookie(res http.ResponseWriter, req *http.Request) {
 	cookie, err := req.Cookie("session-id")
 	if err != nil {
-		id, _ := uuid.NewV4()
+		id := uuid.NewV4()
 		cookie = &http.Cookie{
 			Name:     "session-id",
 			Value:    id.String(),

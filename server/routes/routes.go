@@ -1,12 +1,12 @@
 package routes
 
 import (
-	"auth"
+	"aquarium/auth"
 	"fmt"
-	"measurements"
+	"aquarium/measurements"
 	"net/http"
 	"os/user"
-	"record"
+	"aquarium/record"
 )
 
 //Use :This will setup the routes fro the server

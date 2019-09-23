@@ -1,7 +1,7 @@
 package measurements
 
 import (
-	"config"
+	"aquarium/config"
 	"log"
 
 	client "github.com/influxdata/influxdb1-client/v2"

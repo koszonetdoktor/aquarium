@@ -1,7 +1,7 @@
 package sensors
 
 import (
-	"config"
+	"aquarium/config"
 	"fmt"
 	"log"
 	"math"
