@@ -1,0 +1,29 @@
+version: '3'
+
+services: 
+  influxdb:
+    image: influxdb
+    volumes:
+      - influxdb:/var/lib/influxdb
+    ports:
+      - "8086:8086"
+    networks:
+      - backbone
+
+  aquarium_server:
+    build: .
+    ports:
+      - "5000:5000"
+    depends_on:
+      - "influxdb"
+    links:
+      - "influxdb"
+    networks:
+      - backbone
+volumes:
+  influxdb:    
+
+networks:
+  backbone:
+    external:
+      name: aquarium-backbone

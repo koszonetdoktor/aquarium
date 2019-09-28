@@ -1,11 +1,11 @@
 package main
 
 import (
+	"aquarium/routes"
 	"fmt"
 	"log"
 	"net/http"
 	"os"
-	"aquarium/routes"
 
 	"aquarium/config"
 	"aquarium/sensors"
@@ -30,11 +30,11 @@ func main() {
 		handler := cors.Default().Handler(mux)
 		log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", port), handler))
 	} else {
-		startSampling()
+		// startSampling()
 
 		port = 5000
 
-		fs := http.FileServer(http.Dir("../../ui/dist"))
+		fs := http.FileServer(http.Dir("./ui/dist"))
 		mux.Handle("/", fs)
 
 		log.Println("Server is running in production on port: ", port)

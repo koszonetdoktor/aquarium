@@ -11,21 +11,24 @@ var InfluxDB client.Client
 
 func init() {
 	var err error
-	log.Println("Connecting to InfluxDB..."
-	InfluxDB, err = client.NewHTTPClient(client.HTTPConfig{
-		Addr: "http://localhost:8086",
-	})
-	if err != nil {
-		log.Println("ERROR: could not connect to the influx databse")
-	}
+	log.Println("Connecting to InfluxDB...")
+	for i := 0; i < 10; i++ {
+		InfluxDB, err = client.NewHTTPClient(client.HTTPConfig{
+			Addr: "http://influxdb:8086",
+		})
+		if err != nil {
+			log.Println("ERROR: could not connect to the influx databse")
+		}
 
-	_, _, err = InfluxDB.Ping(1 * time.Minute)
-	if err != nil {
-		// log.Fatal("ERROR: Influx server is not answering!")
-		log.Println("ERROR: Influx server is not answering!")
+		_, _, err = InfluxDB.Ping(1 * time.Minute)
+		if err != nil {
+			log.Println("ERROR: Influx server is not answering!")
+			time.Sleep(time.Second * 2)
+			continue
+		}
+		log.Println("InfluxDB is connected", InfluxDB)
+		break
 	}
-
-	log.Println("InfluxDB is connected", InfluxDB)
 }
 
 func Insert(media string, sensor string, measuredValue interface{}) error {

@@ -1,15 +1,13 @@
-FROM golang:1.13.0-alpine
+FROM golang:1.13.1-alpine
 
-WORKDIR /app/ui
+WORKDIR /app
 
-COPY . /app
+COPY /server /app
 
-RUN apk add --update npm
+COPY /ui/dist ui/dist
 
-RUN npm install
+RUN go build -o . aquarium
 
-EXPOSE 8080
+EXPOSE 5000
 
-ENV NODE_ENV develpment
-
-CMD [ "npm", "start" ]
+CMD ["/app/aquarium"]

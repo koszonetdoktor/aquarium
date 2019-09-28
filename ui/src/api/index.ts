@@ -1,7 +1,7 @@
 import axios from "../utils/axios";
 import { SensorMeasurement, Event } from "../types";
 
-export async function getWaterTemperature(): Promise<SensorMeasurement<"temperature">> {
+export async function getWaterTemperature(): Promise<Array<SensorMeasurement<"temperature">>> {
     try {
         const response = await axios.get(
             "/measurements/water/temperature",
@@ -12,7 +12,7 @@ export async function getWaterTemperature(): Promise<SensorMeasurement<"temperat
     }
 }
 
-export async function getPhs(): Promise<SensorMeasurement<"ph">> {
+export async function getPhs(): Promise<Array<SensorMeasurement<"ph">>> {
     try {
         const response = await axios.get(
             "/measurements/water/ph",
