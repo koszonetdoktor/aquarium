@@ -41,7 +41,7 @@ func SamplingPh() {
 			log.Println("ERROR: Saving the read ph!", err)
 		}
 		log.Println("Sample water ph: ", ph)
-		time.Sleep(1 * time.Minute)
+		time.Sleep(1 * time.Hour)
 	}
 }
 
